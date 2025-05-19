@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Segunda Versión - Rutas de entrega </title>
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+        }
+        #fecha-hora {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        #clima {
+            margin-top: 1em;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        #temperatura {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        #icono-clima {
+            width: 50px;
+            height: 50px;
+        }
+        #mapa {
+            margin-top: 2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>Segunda Versión de Ejemplo</h1>
+    <p>Fecha y hora de Santiago de Chile: <span id="fecha-hora"></span></p>
+    <div id="clima">
+        <img id="icono-clima" src="" alt="Estado del tiempo">
+        <p id="temperatura"></p>
+        <p id="lluvia"></p>
+    </div>
+    <div id="mapa">
+        <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-70.60027804333502,-33.45731408751516,-70.59481395666495,-33.45327391248484&layer=mapnik&marker=-33.455294,-70.597546"
+            style="border: 1px solid black; width: 600px; height: 450px;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+    </div>
+    <script>
+        function mostrarFechaHora() {
+            const ahora = new Date();
+            const fechaHoraSantiago = ahora.toLocaleString('es-CL', {
+                timeZone: 'America/Santiago'
+            });
+            document.getElementById('fecha-hora').textContent = fechaHoraSantiago;
+        }
+
+        function obtenerClima() {
+            // Esta es una simulación de datos climáticos. En una aplicación real,
+            // obtendrías estos datos de una API de clima.
+            const temperatura = Math.floor(Math.random() * 30) + 10; // Temperatura entre 10 y 40 grados
+            const estadoClima = ["Soleado", "Nublado", "Lluvioso", "Parcialmente nublado"][Math.floor(Math.random() * 4)];
+            const lluvia = Math.random() * 10; // Lluvia en mm
+
+            document.getElementById("temperatura").textContent = `Temperatura: ${temperatura}°C`;
+            document.getElementById("lluvia").textContent = `Lluvia: ${lluvia.toFixed(1)} mm`;
+
+            const iconoClima = document.getElementById("icono-clima");
+            switch (estadoClima) {
+                case "Soleado":
+                    iconoClima.src = "https://openweathermap.org/img/wn/01d.png"; // Icono de sol
+                    break;
+                case "Nublado":
+                    iconoClima.src = "https://openweathermap.org/img/wn/02d.png"; // Icono de nubes
+                    break;
+                case "Lluvioso":
+                    iconoClima.src = "https://openweathermap.org/img/wn/09d.png"; // Icono de lluvia
+                    break;
+                case "Parcialmente nublado":
+                    iconoClima.src = "https://openweathermap.org/img/wn/03d.png"; // Icono de nubes y sol
+                    break;
+                default:
+                    iconoClima.src = "";
+            }
+        }
+
+        mostrarFechaHora();
+        obtenerClima();
+        setInterval(mostrarFechaHora, 1000); // Actualiza la fecha y hora cada segundo
+        setInterval(obtenerClima, 600000); // Actualiza el clima cada 10 minutos
+    </script>
+</body>
+</html>
+
