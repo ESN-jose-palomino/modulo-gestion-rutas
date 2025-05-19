@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Primera Versión</title>
+</head>
+<body>
+    <h1>Primera Versión – Rutas de entrega</h1>
+    <p>Fecha y hora de Santiago de Chile: <span id="fecha-hora"></span></p>
+    <div id="mapa">
+        <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-70.60027804333502,-33.45731408751516,-70.59481395666495,-33.45327391248484&layer=mapnik&marker=-33.455294,-70.597546"
+            style="border: 1px solid black; width: 600px; height: 450px;"
+            allowfullscreen
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+    </div>
+    <script>
+        function mostrarFechaHora() {
+            const ahora = new Date();
+            const fechaHoraSantiago = ahora.toLocaleString('es-CL', {
+                timeZone: 'America/Santiago'
+            });
+            document.getElementById('fecha-hora').textContent = fechaHoraSantiago;
+        }
+        mostrarFechaHora();
+        setInterval(mostrarFechaHora, 1000); // Actualiza cada segundo
+    </script>
+</body>
+</html>
